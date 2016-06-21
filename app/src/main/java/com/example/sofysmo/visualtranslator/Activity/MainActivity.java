@@ -1,7 +1,12 @@
 package com.example.sofysmo.visualtranslator.Activity;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.v4.content.ContextCompat;
+import android.view.MotionEvent;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -13,6 +18,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.Spinner;
 
 import com.example.sofysmo.visualtranslator.Activity.DictionaryActivity;
@@ -47,6 +53,7 @@ public class MainActivity extends AppCompatActivity
         output_spinner.setAdapter(adapter);
         input_spinner.setOnItemSelectedListener(this);
         output_spinner.setOnItemSelectedListener(this);
+        InitAllButton();
     }
 
     @Override
@@ -58,29 +65,6 @@ public class MainActivity extends AppCompatActivity
             super.onBackPressed();
         }
     }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
@@ -93,7 +77,6 @@ public class MainActivity extends AppCompatActivity
             startActivity(intent);
 
         }
-
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
@@ -107,5 +90,95 @@ public class MainActivity extends AppCompatActivity
 
     public void onNothingSelected(AdapterView<?> parent) {
         // Another interface callback
+    }
+    public void InitAllButton() {
+        final ImageView replaceImg = (ImageView) findViewById(R.id.replace_button);
+        if (replaceImg != null) {
+            replaceImg.setOnTouchListener(new View.OnTouchListener() {
+                @Override
+                public boolean onTouch(View v, MotionEvent event) {
+                    switch (event.getAction()) {
+                        case MotionEvent.ACTION_DOWN: {
+
+                            replaceImg.setColorFilter(ContextCompat.getColor(getApplicationContext(), R.color.colorAccent));
+
+                            break;
+                        }
+                        case MotionEvent.ACTION_UP: {
+                            replaceImg.setColorFilter(ContextCompat.getColor(getApplicationContext(), R.color.colorGreyIcon));
+                            break;
+                        }
+                    }
+
+                    return true;
+                }
+
+            });
+        }
+        final ImageView delete_button = (ImageView) findViewById(R.id.delete_button);
+        if (delete_button != null) {
+            delete_button.setOnTouchListener(new View.OnTouchListener() {
+                @Override
+                public boolean onTouch(View v, MotionEvent event) {
+                    switch (event.getAction()) {
+                        case MotionEvent.ACTION_DOWN: {
+                            delete_button.setColorFilter(ContextCompat.getColor(getApplicationContext(), R.color.colorAccent));
+                            break;
+                        }
+                        case MotionEvent.ACTION_UP: {
+                            delete_button.setColorFilter(ContextCompat.getColor(getApplicationContext(), R.color.colorGreyIcon));
+                            break;
+                        }
+                    }
+                    return true;
+                }
+
+            });
+        }
+        final ImageView picturs_button = (ImageView) findViewById(R.id.picturs_button);
+        if (picturs_button != null) {
+            picturs_button.setOnTouchListener(new View.OnTouchListener() {
+                boolean selected=false;
+                @Override
+                public boolean onTouch(View v, MotionEvent event) {
+                    switch (event.getAction()) {
+                        case MotionEvent.ACTION_DOWN: {
+                            if(!selected) {
+                                picturs_button.setColorFilter(ContextCompat.getColor(getApplicationContext(), R.color.colorAccent));
+                                selected=true;
+                            }
+                            else
+                            {
+                                picturs_button.setColorFilter(ContextCompat.getColor(getApplicationContext(), R.color.colorGreyIcon));
+                                selected=false;
+                            }
+                            break;
+                        }
+                    }
+                    return true;
+                }
+
+            });
+        }
+        final ImageView speak_output_button = (ImageView) findViewById(R.id.speak_output_button);
+        if (speak_output_button != null) {
+            speak_output_button.setOnTouchListener(new View.OnTouchListener() {
+                @Override
+                public boolean onTouch(View v, MotionEvent event) {
+                    switch (event.getAction()) {
+                        case MotionEvent.ACTION_DOWN: {
+                                speak_output_button.setColorFilter(ContextCompat.getColor(getApplicationContext(), R.color.colorAccent));
+                            break;
+                        }
+                        case MotionEvent.ACTION_UP: {
+                            speak_output_button.setColorFilter(Color.argb(255,255,255,255));
+                            break;
+                        }
+                    }
+                    return true;
+                }
+
+            });
+        }
     }
 }

@@ -6,16 +6,17 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
+
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".Activity.MainActivity"
     tools:showIn="@layout/app_bar_main">
-
+    <!--android:paddingTop="@dimen/activity_vertical_margin"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"-->
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="@dimen/header_width">
+        android:layout_height="@dimen/header_width"
+        android:padding="16dp">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -24,17 +25,19 @@
                 android:id="@+id/input_spinner"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="0.45"
-                android:backgroundTint="@color/state_list">
+                android:layout_weight="0.45">
 
             </Spinner>
             <ImageView
+                android:id="@+id/replace_button"
                 android:layout_width="@dimen/icon_hw"
                 android:layout_height="@dimen/icon_hw"
                 android:src="@drawable/replace"
-                android:tint="@color/state_list"
                 android:layout_gravity="center"
+                android:tint="@color/colorGreyIcon"
                  />
+            <!--
+            android:tint="@color/state_button"-->
             <Spinner
                 android:id="@+id/output_spinner"
                 android:layout_width="match_parent"
@@ -48,13 +51,16 @@
     <android.support.v7.widget.CardView
         android:layout_marginTop="@dimen/margin_main"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:layout_marginRight="@dimen/activity_horizontal_margin">>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
             android:padding="@dimen/padding_main">
             <ImageView
+                android:id="@+id/delete_button"
                 android:layout_width="@dimen/icon_hw"
                 android:layout_height="@dimen/icon_hw"
                 android:layout_marginRight="@dimen/icon_litle_margin"
@@ -67,6 +73,7 @@
                 android:textSize="@dimen/text_input_size"
                 android:text="Мама мыла раму"></TextView>
             <ImageView
+                android:id="@+id/picturs_button"
                 android:layout_width="@dimen/icon_hw"
                 android:layout_height="@dimen/icon_hw"
                 android:src="@drawable/ic_menu_gallery"
@@ -79,7 +86,9 @@
         app:cardBackgroundColor="@color/colorAccent"
         android:layout_width="match_parent"
         android:layout_height="@dimen/cart_output_height"
-        android:layout_marginTop="@dimen/margin_main">
+        android:layout_marginTop="@dimen/margin_main"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:layout_marginRight="@dimen/activity_horizontal_margin">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -108,6 +117,7 @@
                     android:textSize="@dimen/subheader_text_size"/>
                 </LinearLayout>
                 <ImageView
+                    android:id="@+id/speak_output_button"
                     android:layout_width="@dimen/subheader_text_size"
                     android:layout_height="@dimen/subheader_text_size"
                     android:layout_gravity="right"
@@ -129,6 +139,8 @@
         android:layout_marginTop="@dimen/margin_main"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:layout_marginRight="@dimen/activity_horizontal_margin">
         app:layoutManager="android.support.v7.widget.GridLayoutManager">
     </android.support.v7.widget.RecyclerView>
 
