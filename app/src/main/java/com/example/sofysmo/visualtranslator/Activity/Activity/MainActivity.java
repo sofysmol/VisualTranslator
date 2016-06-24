@@ -1,10 +1,8 @@
-package com.example.sofysmo.visualtranslator.Activity;
+package com.example.sofysmo.visualtranslator.Activity.Activity;
 
 import android.content.Intent;
 import android.graphics.Color;
-import android.graphics.PorterDuff;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.view.MotionEvent;
 import android.view.View;
@@ -14,23 +12,23 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.Spinner;
 
-import com.example.sofysmo.visualtranslator.Activity.DictionaryActivity;
+import com.example.sofysmo.visualtranslator.Activity.Utils.PreferencesManager;
 import com.example.sofysmo.visualtranslator.R;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,
         AdapterView.OnItemSelectedListener {
-
+    PreferencesManager preferencesManager;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -46,8 +44,10 @@ public class MainActivity extends AppCompatActivity
         Spinner input_spinner=(Spinner) findViewById(R.id.input_spinner);
         Spinner output_spinner=(Spinner) findViewById(R.id.output_spinner);
 
+        preferencesManager=PreferencesManager.getInstance();
+        preferencesManager.init(getApplicationContext());
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
-                R.array.languages, android.R.layout.simple_spinner_item);
+                R.array.languages, R.layout.spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         input_spinner.setAdapter(adapter);
         output_spinner.setAdapter(adapter);
@@ -172,6 +172,26 @@ public class MainActivity extends AppCompatActivity
                         }
                         case MotionEvent.ACTION_UP: {
                             speak_output_button.setColorFilter(Color.argb(255,255,255,255));
+                            break;
+                        }
+                    }
+                    return true;
+                }
+
+            });
+        }
+        final ImageView speak_input_button = (ImageView) findViewById(R.id.speak_input_button);
+        if (speak_input_button != null) {
+            speak_input_button.setOnTouchListener(new View.OnTouchListener() {
+                @Override
+                public boolean onTouch(View v, MotionEvent event) {
+                    switch (event.getAction()) {
+                        case MotionEvent.ACTION_DOWN: {
+                            speak_input_button.setColorFilter(ContextCompat.getColor(getApplicationContext(), R.color.colorAccent));
+                            break;
+                        }
+                        case MotionEvent.ACTION_UP: {
+                            speak_input_button.setColorFilter(ContextCompat.getColor(getApplicationContext(), R.color.colorGreyIcon));
                             break;
                         }
                     }

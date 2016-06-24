@@ -7,17 +7,21 @@
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="nav_header_text_size">32dp</dimen>
-    <dimen name="cart_input_height">200dp</dimen>
+
     <dimen name="cart_output_height">140dp</dimen>
     <dimen name="margin_main">11dp</dimen>
     <dimen name="padding_main">16dp</dimen>
     <dimen name="icon_hw">24dp</dimen>
     <dimen name="icon_margin">12dp</dimen>
-    <dimen name="text_input_size">24sp</dimen>
-    <dimen name="text_input_height">110dp</dimen>
+
     <dimen name="icon_litle_margin">4dp</dimen>
     <dimen name="subheader_text_size">20sp</dimen>
     <dimen name="margin_top_for_text">16dp</dimen>
+    <!--input card -->
+    <dimen name="text_input_size">24sp</dimen>
+    <dimen name="text_input_height">110dp</dimen>
+    <dimen name="cart_input_height">200dp</dimen>
+    <dimen name="margin_between_icon_input">20dp</dimen>
     <!-- litle card -->
     <dimen name="text_card_size">24dp</dimen>
     <!-- big card -->
@@ -25,4 +29,6 @@
     <dimen name="icon_hw_big">40dp</dimen>
     <!-- Header -->
     <dimen name="header_width">60dp</dimen>
+    <dimen name="header_padding">16dp</dimen>
+    <dimen name="header_text_size">20sp</dimen>
 </resources>
