@@ -9,7 +9,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".Activity.Activity.MainActivity"
+            android:name=".activity.MainActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -18,8 +18,13 @@
             </intent-filter>
 
         </activity>
+
+        <uses-permission android:name="android.permission.INTERNET" />
+        <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+
         <activity
-            android:name=".Activity.Activity.DictionaryActivity"
+            android:name=".activity.DictionaryActivity"
             android:label="@string/title_activity_dictionary"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>

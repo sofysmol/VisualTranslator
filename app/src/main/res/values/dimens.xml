@@ -18,7 +18,7 @@
     <dimen name="subheader_text_size">20sp</dimen>
     <dimen name="margin_top_for_text">16dp</dimen>
     <!--input card -->
-    <dimen name="text_input_size">24sp</dimen>
+    <dimen name="text_input_size">20sp</dimen>
     <dimen name="text_input_height">110dp</dimen>
     <dimen name="cart_input_height">200dp</dimen>
     <dimen name="margin_between_icon_input">20dp</dimen>

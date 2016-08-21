@@ -1,4 +1,4 @@
-package com.example.sofysmo.visualtranslator.Activity.Utils;
+package com.example.sofysmo.visualtranslator.utils;
 
 import android.content.Context;
 import android.content.SharedPreferences;

@@ -1,4 +1,4 @@
-package com.example.sofysmo.visualtranslator.Activity.Utils;
+package com.example.sofysmo.visualtranslator.utils;
 
 import android.content.Context;
 
@@ -20,5 +20,20 @@ public class PreferencesManager {
         tinyDB = new TinyDB(appContext);
         context=appContext;
     }
-
+    public String getStringSetting(String key)
+    {
+        return tinyDB.getString(key);
+    }
+    public int getIntSetting(String key)
+    {
+        return tinyDB.getInt(key);
+    }
+    public void saveSetting(String key, String content)
+    {
+        tinyDB.putString(key,content);
+    }
+    public void saveSetting(String key, int content)
+    {
+        tinyDB.putInt(key,content);
+    }
 }

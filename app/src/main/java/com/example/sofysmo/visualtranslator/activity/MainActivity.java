@@ -1,9 +1,11 @@
-package com.example.sofysmo.visualtranslator.Activity.Activity;
+package com.example.sofysmo.visualtranslator.activity;
 
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.CardView;
+import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -15,15 +17,16 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 
-import com.example.sofysmo.visualtranslator.Activity.Utils.PreferencesManager;
+import com.example.sofysmo.visualtranslator.utils.PreferencesManager;
 import com.example.sofysmo.visualtranslator.R;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,
-        AdapterView.OnItemSelectedListener {
+        View.OnKeyListener {
     PreferencesManager preferencesManager;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,19 +44,12 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-        Spinner input_spinner=(Spinner) findViewById(R.id.input_spinner);
-        Spinner output_spinner=(Spinner) findViewById(R.id.output_spinner);
 
         preferencesManager=PreferencesManager.getInstance();
         preferencesManager.init(getApplicationContext());
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
-                R.array.languages, R.layout.spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        input_spinner.setAdapter(adapter);
-        output_spinner.setAdapter(adapter);
-        input_spinner.setOnItemSelectedListener(this);
-        output_spinner.setOnItemSelectedListener(this);
-        InitAllButton();
+
+        InitAllButtons();
+        InitAllSpinners();
     }
 
     @Override
@@ -65,6 +61,7 @@ public class MainActivity extends AppCompatActivity
             super.onBackPressed();
         }
     }
+
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
@@ -82,16 +79,49 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
-    public void onItemSelected(AdapterView<?> parent, View view,
-                               int pos, long id) {
-        // An item was selected. You can retrieve the selected item using
-        // parent.getItemAtPosition(pos)
-    }
+    @Override
+    public boolean onKey(View v, int keyCode, KeyEvent event) {
+        if ((event.getAction() == KeyEvent.ACTION_DOWN) &&
+                (keyCode == KeyEvent.KEYCODE_ENTER)) {
+            CardView card=(CardView) findViewById(R.id.output_card);
+            card.setVisibility(View.VISIBLE);
+            return true;
 
-    public void onNothingSelected(AdapterView<?> parent) {
-        // Another interface callback
+        }
+        return false;
     }
-    public void InitAllButton() {
+    public void InitAllSpinners(){
+        Spinner input_spinner=(Spinner) findViewById(R.id.input_spinner);
+        Spinner output_spinner=(Spinner) findViewById(R.id.output_spinner);
+
+        int in_value=preferencesManager.getIntSetting("input_spinner_pos");
+        input_spinner.setSelection(in_value);
+        int out_value=preferencesManager.getIntSetting("output_spinner_pos");
+        output_spinner.setSelection(in_value);
+
+        input_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
+                //Object item = parent.getItemAtPosition(pos);
+                preferencesManager.saveSetting("input_spinner_pos",pos);
+            }
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
+        input_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
+                //Object item = parent.getItemAtPosition(pos);
+                preferencesManager.saveSetting("output_spinner_pos",pos);
+            }
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+                R.array.languages, R.layout.spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        input_spinner.setAdapter(adapter);
+        output_spinner.setAdapter(adapter);
+    }
+    public void InitAllButtons() {
         final ImageView replaceImg = (ImageView) findViewById(R.id.replace_button);
         if (replaceImg != null) {
             replaceImg.setOnTouchListener(new View.OnTouchListener() {
@@ -106,6 +136,11 @@ public class MainActivity extends AppCompatActivity
                         }
                         case MotionEvent.ACTION_UP: {
                             replaceImg.setColorFilter(ContextCompat.getColor(getApplicationContext(), R.color.colorGreyIcon));
+                            Spinner input_spinner=(Spinner) findViewById(R.id.input_spinner);
+                            Spinner output_spinner=(Spinner) findViewById(R.id.output_spinner);
+                            int t=input_spinner.getSelectedItemPosition();
+                            input_spinner.setSelection(output_spinner.getSelectedItemPosition());
+                            output_spinner.setSelection(t);
                             break;
                         }
                     }
@@ -127,6 +162,10 @@ public class MainActivity extends AppCompatActivity
                         }
                         case MotionEvent.ACTION_UP: {
                             delete_button.setColorFilter(ContextCompat.getColor(getApplicationContext(), R.color.colorGreyIcon));
+                            EditText input_text=(EditText)findViewById(R.id.input_text);
+                            input_text.setText("");
+                            CardView input_card=(CardView) findViewById(R.id.output_card);
+                            input_card.setVisibility(View.INVISIBLE);
                             break;
                         }
                     }
@@ -138,7 +177,7 @@ public class MainActivity extends AppCompatActivity
         final ImageView picturs_button = (ImageView) findViewById(R.id.picturs_button);
         if (picturs_button != null) {
             picturs_button.setOnTouchListener(new View.OnTouchListener() {
-                boolean selected=false;
+                boolean selected=true;
                 @Override
                 public boolean onTouch(View v, MotionEvent event) {
                     switch (event.getAction()) {
@@ -146,6 +185,7 @@ public class MainActivity extends AppCompatActivity
                             if(!selected) {
                                 picturs_button.setColorFilter(ContextCompat.getColor(getApplicationContext(), R.color.colorAccent));
                                 selected=true;
+
                             }
                             else
                             {
@@ -202,3 +242,4 @@ public class MainActivity extends AppCompatActivity
         }
     }
 }
+

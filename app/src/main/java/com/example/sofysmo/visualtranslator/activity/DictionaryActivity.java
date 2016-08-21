@@ -1,4 +1,4 @@
-package com.example.sofysmo.visualtranslator.Activity.Activity;
+package com.example.sofysmo.visualtranslator.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,7 +10,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
-import com.example.sofysmo.visualtranslator.Activity.Activity.MainActivity;
 import com.example.sofysmo.visualtranslator.R;
 
 public class DictionaryActivity extends AppCompatActivity

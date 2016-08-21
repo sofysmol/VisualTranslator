@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:paddingBottom="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context=".Activity.Activity.MainActivity"
+    tools:context=".activity.MainActivity"
     tools:showIn="@layout/app_bar_main">
     <!--android:paddingTop="@dimen/activity_vertical_margin"
         android:paddingLeft="@dimen/activity_horizontal_margin"
@@ -53,54 +53,74 @@
         android:layout_marginTop="@dimen/margin_main"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
             android:padding="@dimen/padding_main">
-            <ImageView
-                android:id="@+id/delete_button"
-                android:layout_width="@dimen/icon_hw"
-                android:layout_height="@dimen/icon_hw"
-                android:layout_marginRight="@dimen/icon_litle_margin"
-                android:layout_gravity="right"
-                android:tint="@color/colorGreyIcon"
-                android:src="@drawable/delete"/>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/text_input_height"
-                android:textSize="@dimen/text_input_size"
-                android:text="Мама мыла раму"></TextView>
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
                 <ImageView
-                    android:id="@+id/picturs_button"
+                    android:id="@+id/delete_button"
                     android:layout_width="@dimen/icon_hw"
                     android:layout_height="@dimen/icon_hw"
-                    android:src="@drawable/ic_menu_gallery"
-                    android:tint="@color/colorAccent"
-                    android:layout_gravity="bottom"/>
-                <ImageView
-                    android:id="@+id/speak_input_button"
-                    android:layout_width="@dimen/icon_hw"
-                    android:layout_height="@dimen/icon_hw"
-                    android:layout_marginLeft="@dimen/margin_between_icon_input"
-                    android:src="@drawable/volume"
+                    android:layout_marginRight="@dimen/icon_litle_margin"
+                    android:layout_gravity="right"
                     android:tint="@color/colorGreyIcon"
-                    android:layout_gravity="bottom"/>
+                    android:src="@drawable/delete"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:minHeight="@dimen/text_input_height">
+                    <EditText
+                        android:id="@+id/input_text"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/text_input_size"
+                        android:inputType="textMultiLine"
+                        android:hint="@string/text_input_hint"
+                        android:text=""
+                        android:background="@android:color/transparent">
+                    </EditText>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="bottom">
+
+                    <ImageView
+                        android:id="@+id/picturs_button"
+                        android:layout_width="@dimen/icon_hw"
+                        android:layout_height="@dimen/icon_hw"
+                        android:src="@drawable/ic_menu_gallery"
+                        android:tint="@color/colorAccent"
+                        android:layout_gravity="bottom"/>
+                    <ImageView
+                        android:id="@+id/speak_input_button"
+                        android:layout_width="@dimen/icon_hw"
+                        android:layout_height="@dimen/icon_hw"
+                        android:layout_marginLeft="@dimen/margin_between_icon_input"
+                        android:src="@drawable/volume"
+                        android:tint="@color/colorGreyIcon"
+                        android:layout_gravity="bottom"/>
+                </LinearLayout>
             </LinearLayout>
 
-        </LinearLayout>
+        </RelativeLayout>
     </android.support.v7.widget.CardView>
 <!--android:layout_marginLeft="@dimen/activity_horizontal_margin"
         android:layout_marginRight="@dimen/activity_horizontal_margin"-->
+
     <android.support.v7.widget.CardView
         app:cardBackgroundColor="@color/colorAccent"
         android:layout_width="match_parent"
         android:layout_height="@dimen/cart_output_height"
-        android:layout_marginTop="@dimen/margin_main">
+        android:layout_marginTop="@dimen/margin_main"
+        android:visibility="invisible"
+        android:id="@+id/output_card">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -142,7 +162,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin_top_for_text"
                 android:textSize="@dimen/text_input_size"
-                android:text="Mam soap frame"
+                android:text=""
                 android:textColor="#ffffff"/>
         </LinearLayout>
     </android.support.v7.widget.CardView>
