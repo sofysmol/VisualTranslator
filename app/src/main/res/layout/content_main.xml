@@ -85,12 +85,15 @@
                         android:background="@android:color/transparent">
                     </EditText>
                 </LinearLayout>
-
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="bottom">
-
+                    android:orientation="horizontal">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="bottom"
+                    android:layout_weight="0.5">
                     <ImageView
                         android:id="@+id/picturs_button"
                         android:layout_width="@dimen/icon_hw"
@@ -106,6 +109,14 @@
                         android:src="@drawable/volume"
                         android:tint="@color/colorGreyIcon"
                         android:layout_gravity="bottom"/>
+                </LinearLayout>
+                <TextView
+                    android:layout_width="40dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="right"
+                    android:textSize="@dimen/text_input_size"
+                    android:textColor="@color/colorAccent"
+                    android:text="Go" />
                 </LinearLayout>
             </LinearLayout>
 

@@ -26,6 +26,7 @@ import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.commons.io.IOUtils;
 
@@ -38,20 +39,17 @@ import cz.msebera.android.httpclient.NameValuePair;
 public class APIWrapper {
     private Logger log = LoggerFactory.getLogger(APIWrapper.class);
 
-   // private AsyncHttpClient client = new AsyncHttpClient();
+    private Map<String, String> headerParam;
 
-    private String username;
-    private String password;
     public APIWrapper()
     {
     }
-    public APIWrapper(String username, String password) {
-        this.username = username;
-        this.password = password;
-        auth();
+
+    public void setHeaderProperty(Map<String,String> headerParam){
+        this.headerParam = headerParam;
     }
 
-    public String get(String req, List<NameValuePair> params) throws IOException {
+    public String get(String req, RequestParams params) throws IOException {
         req = req + "?" + params.toString();
         URL url = new URL(req);
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
@@ -84,7 +82,8 @@ public class APIWrapper {
         }
     }
 
-    public String put(String req, String data) throws IOException{
+    public String put(String req, String data,RequestParams params) throws IOException{
+        req = req + "?"+params.toString();
         URL url = new URL(req);
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
         conn.setRequestMethod("PUT");
@@ -101,7 +100,8 @@ public class APIWrapper {
         }
     }
 
-    public String delete(String req) throws IOException {
+    public String delete(String req,RequestParams params) throws IOException {
+        req = req + "?"+params.toString();
         URL url = new URL(req);
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
         beforConnect(conn);
@@ -118,9 +118,11 @@ public class APIWrapper {
     {
         conn.setReadTimeout(Constants.TIMEOUT);
         conn.setConnectTimeout(Constants.TIMEOUT);
+        for(String key : headerParam.keySet())
+        conn.setRequestProperty(key,headerParam.get(key));
     }
 
-    private String connect(HttpURLConnection conn) throws IOException
+    private String connect(HttpURLConnection conn) throws IOException, APIResponseException
     {
         InputStream in = null;
         try {
@@ -137,13 +139,6 @@ public class APIWrapper {
             if(in!=null)
                 in.close();
         }
-    }
-    private void auth(){
-        Authenticator.setDefault(new Authenticator() {
-            protected PasswordAuthentication getPasswordAuthentication() {
-                return new PasswordAuthentication(username, password.toCharArray());
-            }
-        });
     }
 
 }
